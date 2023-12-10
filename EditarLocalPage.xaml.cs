@@ -1,3 +1,4 @@
+using Microsoft.Maui.Media;
 using ProyectoApp.Models;
 using ProyectoApp.Services;
 
@@ -35,19 +36,35 @@ public partial class EditarLocalPage : ContentPage
 
     private async void OnGuardarClicked(object sender, EventArgs e)
     {
-        var local = new Local
+        try
         {
-            Nombre = NombreEntry.Text,
-            Descripcion = DescripcionEditor.Text,
-            Direccion = DireccionEntry.Text,
-            Capacidad = int.Parse(CapacidadEntry.Text) // Asegúrate de manejar la conversión y validación correctamente
-        };
+            var localActualizado = new Local
+            {
+                Id = _localId,
+                Nombre = NombreEntry.Text,
+                Descripcion = DescripcionEditor.Text,
+                Direccion = DireccionEntry.Text,
+                Capacidad = int.Parse(CapacidadEntry.Text) // Asegúrate de manejar la conversión y validación correctamente
+            };
 
-        // Aquí puedes llamar a tu API para guardar los cambios
-    }
+            string token = Preferences.Get("UserToken", string.Empty);
+            bool resultado = await _api.EditarLocal(_localId, localActualizado, token);
 
-    private void OnVolverClicked(object sender, EventArgs e)
-    {
-        // Código para volver a la página anterior
+            if (resultado)
+            {
+                await DisplayAlert("Éxito", "Datos actualizados correctamente.", "OK");
+                var editarHorariosPage = new EditarHorariosPage(_localId);
+                Navigation.InsertPageBefore(editarHorariosPage, this);
+                await Navigation.PopAsync(); // Esto removerá la página actual de la pila
+            }
+            else
+            {
+                await DisplayAlert("Error", "No se pudo actualizar los datos.", "OK");
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", "Error al actualizar los datos: " + ex.Message, "OK");
+        }
     }
 }

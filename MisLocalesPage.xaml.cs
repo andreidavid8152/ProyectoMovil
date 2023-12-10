@@ -36,13 +36,10 @@ public partial class MisLocalesPage : ContentPage
             string token = Preferences.Get("UserToken", defaultValue: string.Empty);
             var locales = await _api.ObtenerLocalesArrendador(token);
 
-            if (Locales.Count != locales.Count) // Comprueba si la cantidad de elementos es diferente
+            Locales.Clear();
+            foreach (var local in locales)
             {
-                Locales.Clear();
-                foreach (var local in locales)
-                {
-                    Locales.Add(local);
-                }
+                Locales.Add(local);
             }
         }
         catch (Exception ex)

@@ -19,7 +19,6 @@
             <Entry x:Name="CapacidadEntry" Placeholder="Ingrese la capacidad" Keyboard="Numeric" PlaceholderColor="#3b4151"/>
 
             <Button Text="Guardar" BackgroundColor="#3CAF50" TextColor="White" Clicked="OnGuardarClicked" />
-            <Button Text="Volver" BackgroundColor="#FFA500" TextColor="White" Clicked="OnVolverClicked" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
