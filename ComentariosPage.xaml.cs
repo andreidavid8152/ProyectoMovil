@@ -47,7 +47,7 @@ public partial class ComentariosPage : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", "No se pudieron cargar los comentarios: " + ex.Message, "OK");
+            await DisplayAlert("Sin comentarios", ex.Message, "OK");
         }
     }
 

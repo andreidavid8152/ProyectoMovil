@@ -36,9 +36,17 @@ public partial class ReservasPage : ContentPage
             var reservasCliente = await _api.ObtenerReservasCliente(token);
 
             Reservas.Clear();
-            foreach (var reserva in reservasCliente)
+            if (reservasCliente.Any()) // Verifica si hay reservas
             {
-                Reservas.Add(reserva);
+                foreach (var reserva in reservasCliente)
+                {
+                    Reservas.Add(reserva);
+                }
+            }
+            else
+            {
+                // Mostrar mensaje si no hay reservas
+                await DisplayAlert("Sin Reservas", "No tienes reservas en este momento.", "OK");
             }
         }
         catch (Exception ex)
@@ -118,6 +126,18 @@ public partial class ReservasPage : ContentPage
             if (resultado)
             {
                 await DisplayAlert("Éxito", "Tu comentario y calificación han sido enviados.", "OK");
+                // Obtiene la referencia de la FlyoutPage que es la MainPage actual
+                if (Application.Current.MainPage is FlyoutPage flyoutPage)
+                {
+                    // Crea una nueva instancia de la comentariosPage
+                    var comentariosPage = new ComentariosPage();
+
+                    // Configura la comentariosPage como la nueva página de detalle
+                    flyoutPage.Detail = new NavigationPage(comentariosPage);
+
+                    // Cierra el menú lateral
+                    flyoutPage.IsPresented = false;
+                }
             }
         }
         catch (Exception ex)

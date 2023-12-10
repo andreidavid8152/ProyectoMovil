@@ -56,7 +56,7 @@ public partial class MisLocalesPage : ContentPage
     {
         if (e.SelectedItem is Local local)
         {
-            Navigation.PushAsync(new DetalleLocalPage(local.Id));
+            Navigation.PushAsync(new DetalleLocalArrendadorPage(local.Id));
             // Restablece el ítem seleccionado para que no aparezca como seleccionado al regresar a la página.
             listaLocales.SelectedItem = null;
         }

@@ -4,20 +4,31 @@
              x:Class="ProyectoApp.MenuPage"
              Title="Menu"
              BackgroundColor="#d9e3f1">
-    <StackLayout>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
         <!-- Lista de elementos del menú -->
-        <CollectionView x:Name="menuItemsCollectionView" SelectionMode="Single">
+        <CollectionView x:Name="menuItemsCollectionView" Grid.Row="0" SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="10">
-                        <Label Text="{Binding Title}" FontSize="Medium">
+                    <Grid Padding="10" HorizontalOptions="StartAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="{Binding Icon}" FontSize="30" Margin="0,0,10,0" Grid.Column="0" VerticalOptions="Start"/>
+                        <Label Text="{Binding Title}" FontSize="Medium" Grid.Column="1" VerticalOptions="Center">
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup>
                                     <VisualState Name="Normal">
                                         <!-- Estado normal -->
                                     </VisualState>
                                     <VisualState Name="Selected">
-                                        <!-- Cambia el color de fondo para el estado seleccionado -->
+                                        <!-- Estado seleccionado -->
                                         <VisualState.Setters>
                                             <Setter Property="BackgroundColor" Value="LightGray" />
                                         </VisualState.Setters>
@@ -25,9 +36,29 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                         </Label>
-                    </StackLayout>
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-    </StackLayout>
+
+        <!-- Elemento de menú 'Mi Perfil' en la parte inferior -->
+        <StackLayout Grid.Row="1" Padding="10" Orientation="Horizontal" VerticalOptions="Center">
+            <Label Text="👤" FontSize="30" Margin="0,0,10,0" VerticalOptions="Center" />
+            <Label Text="Mi Perfil" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="StartAndExpand" >
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnPerfilTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+
+        <StackLayout Grid.Row="2" Padding="10" Orientation="Horizontal" VerticalOptions="Center">
+            <Label Text="🚪" FontSize="30" Margin="0,0,10,0" VerticalOptions="Center" />
+            <Label Text="Cerrar sesion" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="StartAndExpand">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnCerrarSesionTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+
+    </Grid>
 </ContentPage>
