@@ -251,5 +251,94 @@ namespace ProyectoApp.Services
 
             throw new Exception("No se pudo obtener los locales del arrendador desde la API.");
         }
+
+        public async Task<bool> EditarLocal(int id, Local local, string token)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            // Realiza la petición HTTP PUT
+            var response = await _httpClient.PutAsync($"{_baseUrl}Locales/{id}",
+                new StringContent(JsonConvert.SerializeObject(local), Encoding.UTF8, "application/json"));
+
+            if (response.IsSuccessStatusCode)
+            {
+                return true; // Retornamos true para indicar éxito en la operación
+            }
+            else
+            {
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                throw new Exception(errorMessage);
+            }
+        }
+
+        public async Task<List<Horario>> ObtenerHorariosLocal(int id, string token)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var response = await _httpClient.GetAsync($"{_baseUrl}Locales/horarioslocal/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var horariosLocal = JsonConvert.DeserializeObject<List<Horario>>(content);
+                return horariosLocal;
+            }
+
+            throw new Exception("No se pudo obtener los horarios del local desde la API.");
+        }
+
+        public async Task<bool> EditarHorariosLocal(int id, List<Horario> horario, string token)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            // Realiza la petición HTTP PUT
+            var response = await _httpClient.PutAsync($"{_baseUrl}Locales/HorariosLocal/Edit/{id}",
+                new StringContent(JsonConvert.SerializeObject(horario), Encoding.UTF8, "application/json"));
+
+            if (response.IsSuccessStatusCode)
+            {
+                return true; // Retornamos true para indicar éxito en la operación
+            }
+            else
+            {
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                throw new Exception(errorMessage);
+            }
+        }
+
+        public async Task<List<ImagenLocal>> ObtenerImagenesLocal(int id, string token)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var response = await _httpClient.GetAsync($"{_baseUrl}Locales/imageneslocal/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var imagenesLocal = JsonConvert.DeserializeObject<List<ImagenLocal>>(content);
+                return imagenesLocal;
+            }
+
+            throw new Exception("No se pudo obtener las imágenes del local desde la API.");
+        }
+
+        public async Task<bool> EditarImagenesLocal(int localId, List<ImagenLocal> imagenesNuevas, string token)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            // Realiza la petición HTTP PUT
+            var response = await _httpClient.PutAsync($"{_baseUrl}Locales/Imagenes/Edit/{localId}",
+                new StringContent(JsonConvert.SerializeObject(imagenesNuevas), Encoding.UTF8, "application/json"));
+
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                throw new Exception(errorMessage);
+            }
+        }
     }
 }

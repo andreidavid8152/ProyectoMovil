@@ -6,13 +6,22 @@
              BackgroundColor="#d9e3f1">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <!-- Esta fila ocupa el espacio restante -->
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <!-- Nombre del usuario -->
+        <Label Grid.Row="0" Text="Menu" FontSize="Medium" HorizontalOptions="Center" Padding="10" Margin="0,6,0,0"/>
+
+        <!-- Línea separadora -->
+        <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Gray" HorizontalOptions="Fill" Margin="10,0,10,15"/>
+
         <!-- Lista de elementos del menú -->
-        <CollectionView x:Name="menuItemsCollectionView" Grid.Row="0" SelectionMode="Single">
+        <CollectionView x:Name="menuItemsCollectionView" Grid.Row="2" SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="10" HorizontalOptions="StartAndExpand">
@@ -42,7 +51,7 @@
         </CollectionView>
 
         <!-- Elemento de menú 'Mi Perfil' en la parte inferior -->
-        <StackLayout Grid.Row="1" Padding="10" Orientation="Horizontal" VerticalOptions="Center">
+        <StackLayout Grid.Row="3" Padding="10" Orientation="Horizontal" VerticalOptions="Center">
             <Label Text="👤" FontSize="30" Margin="0,0,10,0" VerticalOptions="Center" />
             <Label Text="Mi Perfil" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="StartAndExpand" >
                 <Label.GestureRecognizers>
@@ -51,7 +60,7 @@
             </Label>
         </StackLayout>
 
-        <StackLayout Grid.Row="2" Padding="10" Orientation="Horizontal" VerticalOptions="Center">
+        <StackLayout Grid.Row="4" Padding="10" Orientation="Horizontal" VerticalOptions="Center">
             <Label Text="🚪" FontSize="30" Margin="0,0,10,0" VerticalOptions="Center" />
             <Label Text="Cerrar sesion" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="StartAndExpand">
                 <Label.GestureRecognizers>

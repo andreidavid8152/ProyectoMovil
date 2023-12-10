@@ -61,4 +61,18 @@ public partial class MisLocalesPage : ContentPage
             listaLocales.SelectedItem = null;
         }
     }
+
+    private async void OnEditClicked(object sender, EventArgs e)
+    {
+        if (sender is Button button && button.CommandParameter is int localId)
+        {
+            await Navigation.PushAsync(new EditarLocalPage(localId));
+        }
+    }
+
+    private async void OnDeleteClicked(object sender, EventArgs e)
+    {
+        await DisplayAlert("Eliminar Reserva", "¿Estás seguro de que quieres eliminar esta reserva?", "Sí", "No");
+    }
+
 }

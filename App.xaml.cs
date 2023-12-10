@@ -32,6 +32,7 @@ namespace ProyectoApp
             services.AddTransient<LoginPage>();
             services.AddTransient<MainPage>();
             services.AddTransient<DetalleLocalPage>();
+            services.AddTransient<MisLocalesPage>();
 
             // Si tienes más servicios, también deberías registrarlos aquí
         }

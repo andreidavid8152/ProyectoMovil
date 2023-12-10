@@ -11,8 +11,6 @@ public partial class MenuPage : ContentPage
             new MenuItem { Title = "Mis Locales", TargetType = typeof(MisLocalesPage), Icon = "\uD83C\uDFEA" },
             new MenuItem { Title = "Mis Reservas", TargetType = typeof(ReservasPage), Icon = "\uD83D\uDCC5" },
             new MenuItem { Title = "Mis Comentarios", TargetType = typeof(ComentariosPage), Icon = "\uD83D\uDCAC" }
-
-
         };
 
         menuItemsCollectionView.SelectionChanged += OnSelectionChanged;
