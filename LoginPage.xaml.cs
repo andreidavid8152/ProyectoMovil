@@ -14,6 +14,25 @@ public partial class LoginPage : ContentPage
         this.BindingContext = new Login();
     }
 
+    protected async override void OnAppearing()
+    {
+        base.OnAppearing();
+        string token = Preferences.Get("UserToken", string.Empty);
+        if (!token.Equals(string.Empty))
+        {
+            // Crear la página de menú (Flyout) que actuará como el menú principal
+            var flyoutPage = new FlyoutPage
+            {
+                Flyout = new MenuPage(), // Una nueva página que actuará como el menú
+                Detail = new NavigationPage(new MainPage()) // La página principal dentro del menú
+                {
+                    BarBackgroundColor = Color.FromHex("#14282f"), // Estableces el color de fondo
+                }
+            };
+
+            Application.Current.MainPage = flyoutPage; // Establecer la nueva página principal con el menú
+        }
+    }
 
     private async void OnClickLogin(object sender, EventArgs e)
     {
