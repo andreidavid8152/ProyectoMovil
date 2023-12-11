@@ -14,7 +14,7 @@ namespace ProyectoApp.Services
         // Constructor: inicializa el URL base y el cliente HTTP.
         public APIService()
         {
-            _baseUrl = "http://10.0.2.2:5260/api/";
+            _baseUrl = "https://api-proyecto20231210220132.azurewebsites.net/api/";
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri(_baseUrl);
         }

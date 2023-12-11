@@ -7,7 +7,7 @@ namespace ProyectoApp;
 public partial class DetalleLocalPage : ContentPage
 {
     private readonly HttpClient _httpClient = new HttpClient();
-    private string _baseUrl = "http://10.0.2.2:5260/api/Reservas/verificarDisponibilidad";
+    private string _baseUrl = "https://api-proyecto20231210220132.azurewebsites.net/api/Reservas/verificarDisponibilidad";
     private readonly APIService _api;
     public Local LocalActual { get; set; }
 
