@@ -6,7 +6,7 @@
              BackgroundColor="#d9e3f1">
     <ScrollView Margin="10">
         <VerticalStackLayout Spacing="10">
-            <!-- Aquí puedes poner cualquier botón o elemento que desees en la parte superior de la página -->
+            <Button Text="Nuevo Local" Scale="1.3" HorizontalOptions="Center" Clicked="OnClickNuevoLocal" BackgroundColor="#14282f" Margin="0,20,0,10"/>
 
             <CollectionView x:Name="listaLocales" ItemsSource="{Binding Locales}">
                 <CollectionView.ItemTemplate>
@@ -32,6 +32,14 @@
 
                                 <!-- Contenedor para los botones -->
                                 <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+
+                                    <!-- Botón para ver detalles -->
+                                    <Button Text="👁️" 
+                                            CommandParameter="{Binding Id}"
+                                            Clicked="OnDetailsClicked" 
+                                            BackgroundColor="Orange" TextColor="White" 
+                                            Margin="5" CornerRadius="10"/>
+
                                     <!-- Botón para comentarios -->
                                     <Button Text="✏️" 
                                         CommandParameter="{Binding Id}"
@@ -42,6 +50,7 @@
                                     <!-- Botón para eliminar la reserva -->
                                     <Button Text="🗑️" 
                                         Clicked="OnDeleteClicked"
+                                        CommandParameter="{Binding Id}"
                                         BackgroundColor="#FF3B30" TextColor="White" 
                                         Margin="5" CornerRadius="10"/>
                                 </StackLayout>

@@ -340,5 +340,76 @@ namespace ProyectoApp.Services
                 throw new Exception(errorMessage);
             }
         }
+
+        public async Task<Local> CrearLocal(Local local, string token)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var response = await _httpClient.PostAsJsonAsync($"{_baseUrl}Locales", local);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var localCreado = JsonConvert.DeserializeObject<Local>(content);
+                return localCreado;
+            }
+            else
+            {
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                throw new Exception(errorMessage);
+            }
+        }
+
+        public async Task<bool> AddHorarios(string token, int localId, List<Horario> horarios)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var response = await _httpClient.PostAsync($"{_baseUrl}Locales/AddHorarios/{localId}",
+                new StringContent(JsonConvert.SerializeObject(horarios), Encoding.UTF8, "application/json"));
+
+            if (response.IsSuccessStatusCode)
+            {
+                return true; // Retornamos true para indicar éxito en la operación
+            }
+            else
+            {
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                throw new Exception(errorMessage);
+            }
+        }
+
+        public async Task<bool> AddImagenes(string token, int localId, List<ImagenLocal> imagenes)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var response = await _httpClient.PostAsync($"{_baseUrl}Locales/AddImagenes/{localId}",
+                new StringContent(JsonConvert.SerializeObject(imagenes), Encoding.UTF8, "application/json"));
+
+            if (response.IsSuccessStatusCode)
+            {
+                return true; // Retornamos true para indicar éxito en la operación
+            }
+            else
+            {
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                throw new Exception(errorMessage);
+            }
+        }
+
+        public async Task<bool> EliminarLocal(int id, string token)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var response = await _httpClient.DeleteAsync($"{_baseUrl}Locales/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                return true; // Retornamos true para indicar éxito en la operación
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
